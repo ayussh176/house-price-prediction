@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>🏠 Bangalore House Price Predictor</h1>
+
+    <form method="POST" action="/predict_home_price">
+        <label>Total Square Feet:</label>
+        <input type="number" name="total_sqft" required>
+
+        <label>Number of Bedrooms (BHK):</label>
+        <input type="number" name="bhk" required>
+
+        <label>Number of Bathrooms:</label>
+        <input type="number" name="bath" required>
+
+        <label>Location:</label>
+        <select name="location" required>
+            {% for loc in locations %}
+                <option value="{{ loc }}">{{ loc }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Predict Price</button>
+    </form>
+
+    {% if prediction %}
+        <h2>Estimated Price: ₹ {{ prediction }} Lakhs</h2>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
