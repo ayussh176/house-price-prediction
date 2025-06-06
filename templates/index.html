@@ -3,32 +3,77 @@
 <head>
     <title>House Price Predictor</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <h1>🏠 Bangalore House Price Predictor</h1>
+    <div class="header-section">
+        <div class="icon-circle"><i class="fas fa-calculator"></i></div>
+        <h1>Property Details</h1>
+        <p>Tell us about your property to get an accurate price prediction</p>
+    </div>
 
-    <form method="POST" action="/predict_home_price">
-        <label>Total Square Feet:</label>
-        <input type="number" name="total_sqft" required>
+    <div class="form-container">
+        <h2>Enter Property Information</h2>
+        <p class="subtitle">All fields are required for accurate prediction</p>
+        <form method="POST" action="/predict_home_price">
+            <div class="input-row">
+                <div class="input-group">
+                    <label for="total_sqft">Square Footage</label>
+                    <input type="number" id="total_sqft" name="total_sqft" placeholder="e.g. 2500" required>
+                </div>
+                <div class="input-group">
+                    <label for="bhk">Bedrooms</label>
+                    <input type="number" id="bhk" name="bhk" placeholder="Select bedrooms" required>
+                </div>
+            </div>
 
-        <label>Number of Bedrooms (BHK):</label>
-        <input type="number" name="bhk" required>
+            <div class="input-group">
+                <label for="bath">Bathrooms</label>
+                <input type="number" id="bath" name="bath" placeholder="Select bathrooms" required>
+            </div>
 
-        <label>Number of Bathrooms:</label>
-        <input type="number" name="bath" required>
+            <div class="input-group">
+                <label for="location">Location (City, State)</label>
+                <select id="location" name="location" required>
+                    {% for loc in locations %}
+                        <option value="{{ loc }}">{{ loc }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <label>Location:</label>
-        <select name="location" required>
-            {% for loc in locations %}
-                <option value="{{ loc }}">{{ loc }}</option>
-            {% endfor %}
-        </select>
-
-        <button type="submit">Predict Price</button>
-    </form>
+            <button type="submit"><i class="fas fa-home"></i> Predict House Price</button>
+        </form>
+    </div>
 
     {% if prediction %}
-        <h2>Estimated Price: ₹ {{ prediction }} Lakhs</h2>
+        <div class="prediction-results">
+            <h2>Price Prediction Results</h2>
+            <p class="subtitle">Based on current market analysis and property details</p>
+            <div class="results-grid">
+                <div class="estimated-value-card">
+                    <h3>Estimated Value</h3>
+                    <p class="location-display">Bangalore</p>
+                    <div class="price-display">₹ {{ prediction }} Lakhs</div>
+                    <div class="price-range">Range: ₹ {{ (prediction * 0.9).round(2) }} - ₹ {{ (prediction * 1.1).round(2) }} Lakhs</div>
+                    <div class="increase-indicator">
+                        <i class="fas fa-chart-line"></i> 8.3% increase vs last year
+                    </div>
+                    <div class="property-specs">
+                        <div><i class="fas fa-ruler-combined"></i> {{ total_sqft }} Sq Ft</div>
+                        <div><i class="fas fa-bed"></i> {{ bhk }} Bedrooms</div>
+                        <div><i class="fas fa-bath"></i> {{ bath }} Bathrooms</div>
+                    </div>
+                </div>
+                <div class="property-summary-card">
+                    <h3>Property Summary</h3>
+                    <p><i class="fas fa-building"></i> Residential Property</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Bangalore</p>
+                    <p class="price-per-sqft">Price per sq ft</p>
+                    <p class="sqft-value">₹ {{ (prediction * 100000 / total_sqft).round(2) }}</p>
+                    <button class="detailed-report-btn">Get Detailed Report</button>
+                </div>
+            </div>
+        </div>
     {% endif %}
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>

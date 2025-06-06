@@ -2,46 +2,291 @@
 
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #f8f9fa;
+    background-color: #f0f2f5; /* Lighter background */
     padding: 40px;
     color: #343a40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.header-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.icon-circle {
+    background-color: #e0f2f7; /* Light blue */
+    color: #007bff;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    margin: 0 auto 15px auto;
 }
 
 h1 {
-    color: #007bff;
+    color: #343a40;
+    margin-bottom: 10px;
+    font-size: 2.5em;
+}
+
+.header-section p {
+    color: #6c757d;
+    font-size: 1.1em;
+}
+
+.form-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    width: 500px; /* Wider form as per screenshot */
+    margin-top: 20px;
+    text-align: center;
+}
+
+.form-container h2 {
+    color: #343a40;
+    margin-bottom: 10px;
+    font-size: 1.8em;
+}
+
+.form-container .subtitle {
+    color: #6c757d;
+    margin-bottom: 25px;
+    font-size: 0.95em;
 }
 
 form {
-    background-color: white;
-    padding: 25px;
+    background-color: white; /* Form itself is white inside the container */
+    padding: 0;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    width: 400px;
-    margin-top: 20px;
+    width: 100%; /* Take full width of container */
+    margin-top: 0;
+    box-shadow: none; /* No shadow on the form itself */
 }
 
-input, select, button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
+.input-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Space between inputs in a row */
     margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
 }
 
-button {
-    background-color: #28a745;
+.input-group {
+    flex: 1; /* Each input group takes equal space */
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #495057;
+    font-size: 0.95em;
+}
+
+input[type="number"],
+select {
+    width: calc(100% - 20px); /* Adjust for padding */
+    padding: 12px 10px;
+    margin-top: 5px;
+    margin-bottom: 0; /* Handled by input-row gap */
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+input[type="number"]:focus,
+select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+button[type="submit"] {
+    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%); /* Gradient as per screenshot */
     color: white;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-button:hover {
-    background-color: #218838;
+button[type="submit"]:hover {
+    background-image: linear-gradient(to right, #5c0ace 0%, #1a60e0 100%);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
 
-h2 {
+button[type="submit"] i {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+/* Prediction Results Section */
+.prediction-results {
+    background-color: #f8f9fa; /* Light background for the section */
+    padding: 40px;
+    margin-top: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    width: 800px; /* Adjust width as needed */
+    text-align: center;
+}
+
+.prediction-results h2 {
+    color: #343a40;
+    margin-bottom: 10px;
+    font-size: 2em;
+}
+
+.prediction-results .subtitle {
+    color: #6c757d;
+    margin-bottom: 30px;
+    font-size: 1em;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Estimated Value wider than Property Summary */
+    gap: 30px;
+    align-items: start;
+}
+
+.estimated-value-card {
+    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%); /* Blue/Purple gradient */
+    color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    text-align: left;
+}
+
+.estimated-value-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.estimated-value-card .location-display {
+    font-size: 0.9em;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.price-display {
+    font-size: 3.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.price-range {
+    font-size: 1em;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.increase-indicator {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 8px 15px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.9em;
+    margin-bottom: 30px;
+}
+
+.increase-indicator i {
+    margin-right: 8px;
+    color: #28a745; /* Green icon for increase */
+}
+
+.property-specs {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.property-specs div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+.property-specs i {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+.property-summary-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.property-summary-card h3 {
+    color: #343a40;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+}
+
+.property-summary-card p {
+    margin-bottom: 12px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    font-size: 0.95em;
+}
+
+.property-summary-card p i {
+    margin-right: 10px;
+    color: #007bff;
+}
+
+.price-per-sqft {
+    font-weight: bold;
     margin-top: 20px;
-    color: #28a745;
+    color: #343a40 !important; /* Override previous p style */
+}
+
+.sqft-value {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #28a745; /* Green color for price */
+    margin-bottom: 25px;
+}
+
+.detailed-report-btn {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.detailed-report-btn:hover {
+    background-color: #218838;
 }

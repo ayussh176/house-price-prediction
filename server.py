@@ -6,7 +6,8 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     util.load_saved_artifacts()
-    return render_template('index.html', locations=util.get_location_names())
+    # Pass dummy values for prediction to avoid error on initial load
+    return render_template('index.html', locations=util.get_location_names(), prediction=None, total_sqft=None, bhk=None, bath=None)
 
 @app.route('/predict_home_price', methods=['POST'])
 def predict_home_price():
@@ -19,7 +20,10 @@ def predict_home_price():
 
     return render_template('index.html',
                            locations=util.get_location_names(),
-                           prediction=prediction)
+                           prediction=prediction,
+                           total_sqft=total_sqft, # Pass these back to display in results
+                           bhk=bhk,
+                           bath=bath)
 
 if __name__ == "__main__":
     print("Starting Flask Server...")
